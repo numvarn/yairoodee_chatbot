@@ -4,3 +4,4 @@ whitenoise
 netaddress
 dj-database-url
 gunicorn
+line-bot-sdk
