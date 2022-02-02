@@ -1,2 +1,1 @@
-# yairoodee_chatbot
-# yairoodee_chatbot
+# โปรเจค "ยายรู้ดี" แชทบอท
