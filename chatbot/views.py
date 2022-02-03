@@ -49,4 +49,43 @@ def callback(request):
     print('intent = ' + intent)
     print('reply_token = ' + reply_token)
 
+    reply(intent, text, reply_token, id, disname)
+
     return Response(status=HTTP_200_OK)
+
+
+def reply(intent, text, reply_token, id, disname):
+    if intent == 'Intent5':
+        # ตั้งค่าข้อความตอบกลับ Flex Message
+        flex_message = FlexSendMessage(
+            alt_text='hello',
+            contents=BubbleContainer(
+                direction='ltr',
+                hero=ImageComponent(
+                    url='https://s.isanook.com/sp/0/rp/r/w728/ya0xa0m1w0/aHR0cHM6Ly9zLmlzYW5vb2suY29tL3NwLzAvdWQvMjY4LzEzNDAwNTgvcmUoMSkuanBn.jpg',
+                    size='full',
+                    aspect_ratio='20:13',
+                    aspect_mode='cover',
+                    action=URIAction(
+                        uri='http://www.sanook.com', label='label')
+                ),
+                body=BoxComponent(
+                    layout='vertical',
+                    contents=[
+                        {
+                            "type": "text",
+                            "text": "Brown Cafe",
+                            "weight": "bold",
+                            "size": "xl"
+                        },
+                    ],
+                ),
+            ),
+        )
+
+        # ตั้งค่าข้อความตอบกลับ Text Message
+        text_message = TextSendMessage(
+            text='สวัสดี {} \nทดสอบสำเร็จ'.format(disname))
+
+        # line_bot_api.reply_message(reply_token, text_message)
+        line_bot_api.reply_message(reply_token, [flex_message, text_message])
