@@ -22,6 +22,9 @@ from linebot.models import (
 )
 
 # Create your views here.
+line_bot_api = LineBotApi(
+    'OfUecJfUK9JXszTysTV2DJmN3P9ckblUryfYIW+LUh/AWXt9KPL26U5cl1sPFcsCmAUd7d5uJfDvxqlDEGCuz8AncGqLozRrkCQBzxQ1nvaChSiqjo4ml37/Q8oUSNadaYVOmT14p8vlaHpEXm8mIwdB04t89/1O/w1cDnyilFU=')
+handler = WebhookHandler('18faa98b8de47b520f83083dbc4ff534')
 
 
 def index(request):
@@ -32,5 +35,18 @@ def index(request):
 @api_view(["POST", ])
 @permission_classes((AllowAny,))
 def callback(request):
-    print(request.data)
+    req = request.data
+    intent = req["queryResult"]["intent"]["displayName"]
+    text = req['originalDetectIntentRequest']['payload']['data']['message']['text']
+    reply_token = req['originalDetectIntentRequest']['payload']['data']['replyToken']
+    id = req['originalDetectIntentRequest']['payload']['data']['source']['userId']
+
+    disname = line_bot_api.get_profile(id).display_name
+
+    print('id = ' + id)
+    print('name = ' + disname)
+    print('text = ' + text)
+    print('intent = ' + intent)
+    print('reply_token = ' + reply_token)
+
     return Response(status=HTTP_200_OK)
