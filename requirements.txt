@@ -5,3 +5,5 @@ netaddress
 dj-database-url
 gunicorn
 line-bot-sdk
+djangorestframework
+markdown

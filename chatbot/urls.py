@@ -5,4 +5,5 @@ from chatbot import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('callback', views.callback),
 ]
